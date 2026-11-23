@@ -10,6 +10,12 @@ private:
 	int size = 0;
 	int capacity = 0;
 
+	void swap(Vector& other) {
+		std::swap(data, other.data);
+		std::swap(capacity, other.capacity);
+		std::swap(size, other.size);
+	}
+
 public:
 	Vector() = default;
 
@@ -39,11 +45,6 @@ public:
 		size = other.size;
 	}
 
-	void swap(Vector& other) {
-		std::swap(data, other.data);
-		std::swap(capacity, other.capacity);
-		std::swap(size, other.size);
-	}
 
 	void reserve(int newCap) {
 		if (capacity >= newCap) {
