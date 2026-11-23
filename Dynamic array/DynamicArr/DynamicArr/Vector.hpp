@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <utility>
+#include <stdexcept>
 
 template  <class T>
 class Vector {
@@ -121,4 +122,40 @@ public:
 		data[idx] = el;
 		size++;
 	}
+
+	//In STL the at method checks for boundaries
+	T& at(int idx) {
+		if (idx < 0 || idx >= size) {
+			throw std::invalid_argument("The given index is not valid.");
+		}
+		return data[idx];
+	}
+
+	const T& at(int idx) const{
+		if (idx < 0 || idx >= size) {
+			throw std::invalid_argument("The given index is not valid.");
+		}
+		return data[idx];
+	}
+
+	T* data_() { return data; }
+	const T* data_() const { return data; }
 };
+
+template <class T>
+bool operator==(const Vector<T>& a, const Vector<T>& b){
+	if (a.size_() != b.size_()) {
+		return false;
+	}
+	for (int i = 0; i < a.size_(); i++) {
+		if (!(a[i] == b[i])) {
+			return false;
+		}
+	}
+	return true;
+}
+
+template<class T>
+bool operator!=(const Vector<T>& a, const Vector<T>& b) {
+	return !(a == b);
+}
